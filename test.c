@@ -50,35 +50,45 @@ int main(int argc, char** argv){
   // printf("the min from index 2 is %d\n",clone->data[index]);
   // printf("\n");
 
-  intarray tab0 = empty_intarray_create(5);
-  for(int i=0;i<tab0->alloc;i++){
-    int n = rand() % (100 - 21 + 1) + 21;
-    if(n%2==1) 
-      n*=-1;
-    ext_intarray_set(tab0,i,n);
-  }
-  intarray_debug(tab0);
-  printf("\n");
-  intarray tab1 = empty_intarray_create(3);
-  for(int i=0;i<tab1->alloc;i++){
-    int n = rand() % (100 - 21 + 1) + 21;
-    if(n%2==1) 
-      n*=-1;
-    ext_intarray_set(tab1,i,n);
-  }
-  intarray_debug(tab1);
-  printf("\n");
-  intarray tab = intarray_concat(tab0,tab1);
-  intarray_debug(tab);
-  printf("\n");
-  printf("The sum of the values is %d\n",intarray_sum(tab));
-  printf("The median of the values is %f\n",intarray_median(tab));
-  printf("The average of the values is %f\n",intarray_average(tab));
-  printf("\n");
+  // intarray tab0 = empty_intarray_create(5);
+  // for(int i=0;i<tab0->alloc;i++){
+  //   int n = rand() % (100 - 21 + 1) + 21;
+  //   if(n%2==1) 
+  //     n*=-1;
+  //   ext_intarray_set(tab0,i,n);
+  // }
+  // intarray_debug(tab0);
+  // printf("\n");
+  // intarray tab1 = empty_intarray_create(3);
+  // for(int i=0;i<tab1->alloc;i++){
+  //   int n = rand() % (100 - 21 + 1) + 21;
+  //   if(n%2==1) 
+  //     n*=-1;
+  //   ext_intarray_set(tab1,i,n);
+  // }
+  // intarray_debug(tab1);
+  // printf("\n");
+  // intarray tab = intarray_concat(tab0,tab1);
+  // intarray_debug(tab);
+  // printf("\n");
+  // printf("The sum of the values is %d\n",intarray_sum(tab));
+  // printf("The median of the values is %f\n",intarray_median(tab));
+  // printf("The average of the values is %f\n",intarray_average(tab));
   // intarray_delete(tab,0);
-  UNSORTED_intarray_delete(tab,7);
-  intarray_debug(tab);
-  intarray_destroy(tab);
-  intarray_destroy(tab0);
-  intarray_destroy(tab1);
+  // UNSORTED_intarray_delete(tab,7);
+  // intarray_debug(tab);
+  // intarray_destroy(tab);
+  // intarray_destroy(tab0);
+  // intarray_destroy(tab1);
+  // int ok;
+  // char* string = "-0";
+  // int number = safe_string_to_int(string,&ok);
+  // if(ok==1){
+  //   printf("Number is %d\n",number);
+  // }else if(ok==0){
+  //   printf("%s is not a number\n",string);
+  // }
+  // printf("\n");
+  // int number = string_to_int("-12a5");
+  // printf("The result : %d",number);
 }
