@@ -74,6 +74,10 @@ int main(int argc, char** argv){
   printf("The sum of the values is %d\n",intarray_sum(tab));
   printf("The median of the values is %f\n",intarray_median(tab));
   printf("The average of the values is %f\n",intarray_average(tab));
+  printf("\n");
+  // intarray_delete(tab,0);
+  UNSORTED_intarray_delete(tab,7);
+  intarray_debug(tab);
   intarray_destroy(tab);
   intarray_destroy(tab0);
   intarray_destroy(tab1);

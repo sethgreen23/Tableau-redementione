@@ -38,3 +38,5 @@ int intarray_get_index_of_min(intarray tab);
 int intarray_get_index_of_min_from(intarray tab, int n);
 int intarray_count_positive_numbers(intarray tab, int start);
 void intarray_clone_tables(intarray tab, intarray copy);
+void intarray_delete(intarray tab, int index);
+void UNSORTED_intarray_delete(intarray tab, int index);

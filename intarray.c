@@ -240,3 +240,32 @@ void intarray_clone_tables(intarray tab, intarray copy){
     intarray_add(copy,tab->data[i]);
   }
 }
+// delete the element in the array and keep the order
+void intarray_delete(intarray tab, int index){
+  if(index < 0){
+    printf("The index cant be negative.\n");
+    return;
+  }
+  if(index>=tab->len){
+    printf("The index need to be between the 0 and %d\n",tab->len-1);
+    return;
+  }
+  int i;
+  for(i = index+1;i<tab->len;i++){
+    tab->data[i-1]=tab->data[i];
+  }
+  tab->len--;
+}
+// delete the element in the array 
+void UNSORTED_intarray_delete(intarray tab, int index){
+  if(index < 0){
+    printf("The index cant be negative.\n");
+    return;
+  }
+  if(index>=tab->len){
+    printf("The index need to be between the 0 and %d\n",tab->len-1);
+    return;
+  }
+  tab->data[index]=tab->data[tab->len-1];
+  tab->len--;
+}
