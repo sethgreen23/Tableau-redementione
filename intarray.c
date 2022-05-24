@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include "intarray.h"
 #include "tools.h"
-
+//Note!! the arrays wont be with size 0
+//create and empty intarray with both len and alloc set to the parameter len
 intarray intarray_create(int len){
   if(len<=0){
     printf("intarray_create: Length cant be null or negative.\n");
@@ -20,6 +21,7 @@ intarray intarray_create(int len){
   // printf("empty_intarray_create: len->%d and alloc->%d\n",p->len,p->alloc);
   return p;
 }
+// display the array
 void intarray_debug(intarray tab){
   int i;
   printf("intarray_debug: Length %d, Alloc %d.\n",tab->len,tab->alloc);
@@ -32,7 +34,7 @@ void intarray_debug(intarray tab){
   }
   printf(" ]");
 }
-
+// create an empty intarray with alloc set to the parameter value and as len=0
 intarray empty_intarray_create(int alloc){
   if(alloc<=0){
     printf("empty_intarray_create: Alloc cant be null or negative.\n");
@@ -50,16 +52,18 @@ intarray empty_intarray_create(int alloc){
   // printf("empty_intarray_create: len->%d and alloc->%d\n",p->len,p->alloc);
   return p;
 }
+//create an empty intarray with alloc equal to 0 it is like that
 intarray standard_empty_intarray_create(void){
   intarray p = empty_intarray_create(0);
   // printf("empty_intarray_create: len->%d and alloc->%d\n",p->len,p->alloc);
   return p;
 }
+// free the memory allocated for both the intarray and data array
 void intarray_destroy(intarray tab){
   free(tab->data);
   free(tab);
 }
-
+// get the element in the data array at the position index
 int intarray_get(intarray tab, int index){
   if(index>tab->len || index<0){
     printf("The index %d is not between 0 and %d.\n",index, tab->len-1);
@@ -68,6 +72,8 @@ int intarray_get(intarray tab, int index){
   }
   return tab->data[index];
 }
+// set the value in the data array at position index
+// the index need to be less then the lenth
 void intarray_set(intarray tab, int index, int value){
   if(index>tab->len || index<0){
     printf("The index %d is not between 0 and %d.\n",index, tab->len-1);
@@ -75,6 +81,9 @@ void intarray_set(intarray tab, int index, int value){
   }
   tab->data[index]=value;
 }
+// same as the legacy intarray_set 
+// the difference is that you can place the value 
+// in any position you wouldlike because the array is resizable
 void ext_intarray_set(intarray tab, int index, int value){
   if(index<0){
     printf("The index %d cant be negative\n",index);
@@ -93,10 +102,11 @@ void ext_intarray_set(intarray tab, int index, int value){
   if(index>=tab->len)
     tab->len++;
 }
-
+// add the element at the end of the array
 void intarray_add(intarray tab, int value){
   ext_intarray_set(tab,tab->len,value);
 }
+// resize the  array with 2*old_alloc+1
 void intarray_resise(intarray tab, int new_alloc){
   int* new_data = malloc(sizeof(int)*new_alloc);
   for(int i=0;i<tab->len;i++){
@@ -107,10 +117,11 @@ void intarray_resise(intarray tab, int new_alloc){
   tab->data = new_data;
 
 }
+// return the length of the array
 int intarray_len(intarray tab){
   return tab->len;
 }
-
+// print the positive values in the array
 void intarray_print_positive_values(intarray tab){
   printf("[ ");
   for(int i=0;i<tab->len;i++){
@@ -125,6 +136,7 @@ void intarray_print_positive_values(intarray tab){
   }
   printf(" ]");
 }
+// search the value in the array
 int intarray_search(intarray tab, int n){
   int i;
   for(i =0;i<tab->len;i++){
@@ -134,6 +146,7 @@ int intarray_search(intarray tab, int n){
   printf("The element %d doenst exist in the array you get the index 0\n",n);
   return 0;
 }
+// search the occurence of the value in the array
 int intarray_nb_occurences(intarray tab, int n){
   int count=0,i;
   for(i =0 ;i<tab->len;i++){
@@ -142,6 +155,7 @@ int intarray_nb_occurences(intarray tab, int n){
   }
   return count;
 }
+// sort the array
 intarray intarray_sort1(intarray tab){
   intarray clone = intarray_clone(tab);
   for(int i=0;i<clone->len-1;i++){
@@ -150,11 +164,13 @@ intarray intarray_sort1(intarray tab){
   }
   return clone;
 }
+// clone the array
 intarray intarray_clone(intarray tab){
   intarray clone = empty_intarray_create(tab->alloc);
   intarray_clone_tables(tab,clone);
   return clone;
 }
+// sum the element in the array
 int intarray_sum(intarray tab){
   int sum=0;
   for(int i=0;i<tab->len;i++){
@@ -162,9 +178,11 @@ int intarray_sum(intarray tab){
   }
   return sum;
 }
+// calculate the average of the values in the array
 float intarray_average(intarray tab){
   return intarray_sum(tab)/(tab->len*1.0);
 }
+// calculate the median value of the array
 float intarray_median(intarray tab){
   int middle_index = tab->len/2;
   
@@ -174,6 +192,7 @@ float intarray_median(intarray tab){
     return (tab->data[middle_index]+tab->data[middle_index-1])/2.0;
   }
 }
+// concatenate two inarray
 intarray intarray_concat (intarray T1, intarray T2){
   intarray tab = empty_intarray_create(2*(T1->alloc+T2->alloc));
   int i,j,k;
@@ -185,12 +204,15 @@ intarray intarray_concat (intarray T1, intarray T2){
   }
   return tab;
 }
+// return the min value in the array
 int intarray_get_min(intarray tab){
   return tab->data[intarray_get_index_of_min(tab)];
 }
+// get the index of the min in the intarray
 int intarray_get_index_of_min(intarray tab){
   return intarray_get_index_of_min_from(tab,0);
 }
+// get the index of the min in the array starting from a certain position
 int intarray_get_index_of_min_from(intarray tab, int n){
   int min=tab->data[n];
   int index=n;
@@ -202,6 +224,7 @@ int intarray_get_index_of_min_from(intarray tab, int n){
   }
   return index;
 }
+// count the number of the positive numbers starting from a certain position
 int intarray_count_positive_numbers(intarray tab, int start){
   int count =0;
   for(int i=start;i<tab->len;i++){
@@ -210,6 +233,7 @@ int intarray_count_positive_numbers(intarray tab, int start){
   }
   return count;
 }
+// clone the table values
 void intarray_clone_tables(intarray tab, intarray copy){
   int i;
   for(i=0;i<tab->len;i++){
