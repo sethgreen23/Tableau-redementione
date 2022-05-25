@@ -30,11 +30,12 @@ void stats(intarray tab){
   printf("The value of the minimum is  %d\n",min);
   printf("The ascendent sorting :\n");
   intarray_debug(sorted_clone);
-  
+  free(sorted_clone);
 }
 int main(int argc, char** argv){
     intarray tab = standard_empty_intarray_create();
     from_char_intarray(tab,argv,argc);
     stats(tab);
+    free(tab);
     
 }
