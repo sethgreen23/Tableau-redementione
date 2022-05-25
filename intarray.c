@@ -54,7 +54,7 @@ intarray empty_intarray_create(int alloc){
 }
 //create an empty intarray with alloc equal to 0 it is like that
 intarray standard_empty_intarray_create(void){
-  intarray p = empty_intarray_create(0);
+  intarray p = empty_intarray_create(STANDARD_TAB_ALLOC);
   // printf("empty_intarray_create: len->%d and alloc->%d\n",p->len,p->alloc);
   return p;
 }
