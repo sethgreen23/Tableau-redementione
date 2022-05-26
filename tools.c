@@ -8,6 +8,13 @@ void interchange_values(int* p, int* c){
   *p=*c;
   *c=interchange;
 }
+// interchange the values of two variables
+void character_interchange_values(char* p, char* c){
+  char interchange;
+  interchange=*p;
+  *p=*c;
+  *c=interchange;
+}
 // convert a string to a number
 int string_to_int(char* str){
   int* ok = malloc(sizeof(int));

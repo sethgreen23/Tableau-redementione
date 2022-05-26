@@ -40,3 +40,4 @@ int intarray_count_positive_numbers(intarray tab, int start);
 void intarray_clone_tables(intarray tab, intarray copy);
 void intarray_delete(intarray tab, int index);
 void UNSORTED_intarray_delete(intarray tab, int index);
+void from_char_intarray(intarray tab, char** charTab, int length);

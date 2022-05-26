@@ -3,16 +3,8 @@
 #include "intarray.h"
 #include "tools.h"
 
-void from_char_intarray(intarray tab, char** charTab, int length){
-  for(int i=1,j=0;i<length;i++){
-    int* ok = malloc(sizeof(int));
-    int integer = safe_string_to_int(charTab[i],ok);
-    if(*ok==1){
-      intarray_add(tab,integer);
-    }
-    free(ok);
-  }
-}
+
+
 void stats(intarray tab){
   int sum = intarray_sum(tab);
   float median = intarray_median(tab);

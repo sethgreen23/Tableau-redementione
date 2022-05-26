@@ -1,70 +1,70 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "intarray.h"
+#include "jstl.h"
 #include "tools.h"
 //Note!! the arrays wont be with size 0
-//create and empty intarray with both len and alloc set to the parameter len
-intarray intarray_create(int len){
+//create and empty jstl with both len and alloc set to the parameter len
+jstl jstl_create(int len){
   if(len<=0){
-    printf("intarray_create: Length cant be null or negative.\n");
+    printf("jstl_create: Length cant be null or negative.\n");
     printf("We create an array with %d length.\n",STANDARD_TAB_LENGTH);
     len = STANDARD_TAB_LENGTH;
   }
-  intarray p = malloc(sizeof(struct _intarray));
+  jstl p = malloc(sizeof(struct _jstl));
   p->len=len;
   p->alloc=len;
-  p->data = malloc(sizeof(int)*len);
+  p->data = malloc(sizeof(char)*len);
   int i;
   for(int i=0;i<len;i++){
     p->data[i]=0;
   }
-  // printf("empty_intarray_create: len->%d and alloc->%d\n",p->len,p->alloc);
+  // printf("empty_jstl_create: len->%d and alloc->%d\n",p->len,p->alloc);
   return p;
 }
 // display the array
-void intarray_debug(intarray tab){
+void jstl_debug(jstl tab){
   int i;
-  printf("intarray_debug: Length %d, Alloc %d.\n",tab->len,tab->alloc);
+  printf("jstl_debug: Length %d, Alloc %d.\n",tab->len,tab->alloc);
   printf("[ ");
   for(i=0;i<tab->len;i++){
     if(i!=tab->len-1)
-      printf("%d, ",tab->data[i]);
+      printf("%c, ",tab->data[i]);
     else
-      printf("%d",tab->data[i]);
+      printf("%c",tab->data[i]);
   }
   printf(" ]");
 }
-// create an empty intarray with alloc set to the parameter value and as len=0
-intarray empty_intarray_create(int alloc){
+// create an empty jstl with alloc set to the parameter value and as len=0
+jstl empty_jstl_create(int alloc){
   if(alloc<=0){
-    printf("empty_intarray_create: Alloc cant be null or negative.\n");
+    printf("empty_jstl_create: Alloc cant be null or negative.\n");
     printf("We create an array with %d length.\n",STANDARD_TAB_LENGTH);
     alloc = STANDARD_TAB_ALLOC;
   }
-  intarray p = malloc(sizeof(struct _intarray));
+  jstl p = malloc(sizeof(struct _jstl));
   p->len=0;
   p->alloc=alloc;
-  p->data = malloc(sizeof(int)*alloc);
+  p->data = malloc(sizeof(char)*alloc);
   int i;
   for(int i=0;i<alloc;i++){
     p->data[i]=0;
   }
-  // printf("empty_intarray_create: len->%d and alloc->%d\n",p->len,p->alloc);
+  // printf("empty_jstl_create: len->%d and alloc->%d\n",p->len,p->alloc);
   return p;
 }
-//create an empty intarray with alloc equal to 0 it is like that
-intarray standard_empty_intarray_create(void){
-  intarray p = empty_intarray_create(STANDARD_TAB_ALLOC);
-  // printf("empty_intarray_create: len->%d and alloc->%d\n",p->len,p->alloc);
+//create an empty jstl with alloc equal to 0 it is like that
+jstl standard_empty_jstl_create(void){
+  jstl p = empty_jstl_create(STANDARD_TAB_ALLOC);
+  // printf("empty_jstl_create: len->%d and alloc->%d\n",p->len,p->alloc);
   return p;
 }
-// free the memory allocated for both the intarray and data array
-void intarray_destroy(intarray tab){
+// free the memory allocated for both the jstl and data array
+void jstl_destroy(jstl tab){
   free(tab->data);
   free(tab);
 }
 // get the element in the data array at the position index
-int intarray_get(intarray tab, int index){
+int jstl_get(jstl tab, int index){
   if(index>tab->len || index<0){
     printf("The index %d is not between 0 and %d.\n",index, tab->len-1);
     printf("You will get the index 0\n");
@@ -74,17 +74,17 @@ int intarray_get(intarray tab, int index){
 }
 // set the value in the data array at position index
 // the index need to be less then the lenth
-void intarray_set(intarray tab, int index, int value){
+void jstl_set(jstl tab, int index, char value){
   if(index>tab->len || index<0){
     printf("The index %d is not between 0 and %d.\n",index, tab->len-1);
     return;
   }
   tab->data[index]=value;
 }
-// same as the legacy intarray_set 
+// same as the legacy jstl_set 
 // the difference is that you can place the value 
 // in any position you wouldlike because the array is resizable
-void ext_intarray_set(intarray tab, int index, int value){
+void ext_jstl_set(jstl tab, int index, char value){
   if(index<0){
     printf("The index %d cant be negative\n",index);
     return;
@@ -94,7 +94,7 @@ void ext_intarray_set(intarray tab, int index, int value){
     return;
   }
   if(index>=tab->alloc)
-    intarray_resise(tab,2*tab->alloc+1);
+    jstl_resise(tab,2*tab->alloc+1);
   for(int i=tab->len;i<tab->alloc;i++){
     tab->data[i]=0;
   }
@@ -103,12 +103,12 @@ void ext_intarray_set(intarray tab, int index, int value){
     tab->len++;
 }
 // add the element at the end of the array
-void intarray_add(intarray tab, int value){
-  ext_intarray_set(tab,tab->len,value);
+void jstl_add(jstl tab, char value){
+  ext_jstl_set(tab,tab->len,value);
 }
 // resize the  array with 2*old_alloc+1
-void intarray_resise(intarray tab, int new_alloc){
-  int* new_data = malloc(sizeof(int)*new_alloc);
+void jstl_resise(jstl tab, int new_alloc){
+  char* new_data = malloc(sizeof(char)*new_alloc);
   for(int i=0;i<tab->len;i++){
     new_data[i]=tab->data[i];
   }
@@ -118,26 +118,26 @@ void intarray_resise(intarray tab, int new_alloc){
 
 }
 // return the length of the array
-int intarray_len(intarray tab){
+int jstl_len(jstl tab){
   return tab->len;
 }
 // print the positive values in the array
-void intarray_print_positive_values(intarray tab){
+void jstl_print_positive_values(jstl tab){
   printf("[ ");
   for(int i=0;i<tab->len;i++){
-    if(tab->data[i]>0){
-      int count = intarray_count_positive_numbers(tab,i+1);
+    if(((int)tab->data[i])>0){
+      int count = jstl_count_positive_numbers(tab,i+1);
       if(count>0){
-        printf("%d, ",tab->data[i]);
+        printf("%c, ",tab->data[i]);
       }else{
-        printf("%d",tab->data[i]);
+        printf("%c",tab->data[i]);
       }
     }
   }
   printf(" ]");
 }
 // search the value in the array
-int intarray_search(intarray tab, int n){
+int jstl_search(jstl tab, char n){
   int i;
   for(i =0;i<tab->len;i++){
     if(tab->data[i]==n)
@@ -147,7 +147,7 @@ int intarray_search(intarray tab, int n){
   return 0;
 }
 // search the occurence of the value in the array
-int intarray_nb_occurences(intarray tab, int n){
+int jstl_nb_occurences(jstl tab, char n){
   int count=0,i;
   for(i =0 ;i<tab->len;i++){
     if(tab->data[i]==n)
@@ -156,77 +156,77 @@ int intarray_nb_occurences(intarray tab, int n){
   return count;
 }
 // sort the array
-intarray intarray_sort1(intarray tab){
-  intarray clone = intarray_clone(tab);
+jstl jstl_sort1(jstl tab){
+  jstl clone = jstl_clone(tab);
   for(int i=0;i<clone->len-1;i++){
-    int index = intarray_get_index_of_min_from(clone,i);
-    interchange_values(clone->data+index,clone->data+i);//&clone->data[i]
+    int index = jstl_get_index_of_min_from(clone,i);
+    character_interchange_values(clone->data+index,clone->data+i);//&clone->data[i]
   }
   return clone;
 }
 // clone the array
-intarray intarray_clone(intarray tab){
-  intarray clone = empty_intarray_create(tab->alloc);
-  intarray_clone_tables(tab,clone);
+jstl jstl_clone(jstl tab){
+  jstl clone = empty_jstl_create(tab->alloc);
+  jstl_clone_tables(tab,clone);
   return clone;
 }
 // sum the element in the array
-int intarray_sum(intarray tab){
+int jstl_sum(jstl tab){
   int sum=0;
   for(int i=0;i<tab->len;i++){
-    sum+=tab->data[i];
+    sum+=(int)tab->data[i];
   }
   return sum;
 }
 // calculate the average of the values in the array
-float intarray_average(intarray tab){
-  return intarray_sum(tab)/(tab->len*1.0);
+float jstl_average(jstl tab){
+  return jstl_sum(tab)/(tab->len*1.0);
 }
 // calculate the median value of the array
-float intarray_median(intarray tab){
-  intarray clone = intarray_sort1(tab);
+float jstl_median(jstl tab){
+  jstl clone = jstl_sort1(tab);
   int middle_index = clone->len/2;
   
   if(clone->len%2==1){ 
-    return clone->data[middle_index]/2.0;
+    return (int)clone->data[middle_index]/2.0;
   }else{
-    return (clone->data[middle_index]+clone->data[middle_index-1])/2.0;
+    return (((int)clone->data[middle_index])+((int)clone->data[middle_index-1]))/2.0;
   }
 }
 // concatenate two inarray
-intarray intarray_concat (intarray T1, intarray T2){
-  intarray tab = empty_intarray_create(2*(T1->alloc+T2->alloc));
+jstl jstl_concat (jstl T1, jstl T2){
+  jstl tab = empty_jstl_create(2*(T1->alloc+T2->alloc));
   int i,j,k;
   for(i=0;i<T1->len;i++){
-    intarray_add(tab,T1->data[i]);
+    jstl_add(tab,T1->data[i]);
   }
   for(j=0;j<T2->len;j++){
-    intarray_add(tab,T2->data[j]);
+    jstl_add(tab,T2->data[j]);
   }
   return tab;
 }
 // return the min value in the array
-int intarray_get_min(intarray tab){
-  return tab->data[intarray_get_index_of_min(tab)];
+int jstl_get_min(jstl tab){
+  return tab->data[jstl_get_index_of_min(tab)];
 }
-// get the index of the min in the intarray
-int intarray_get_index_of_min(intarray tab){
-  return intarray_get_index_of_min_from(tab,0);
+// get the index of the min in the jstl
+int jstl_get_index_of_min(jstl tab){
+  return jstl_get_index_of_min_from(tab,0);
 }
 // get the index of the min in the array starting from a certain position
-int intarray_get_index_of_min_from(intarray tab, int n){
-  int min=tab->data[n];
+int jstl_get_index_of_min_from(jstl tab, int n){
+  int min=(int)tab->data[n];
   int index=n;
   for(int i=n+1;i<tab->len;i++){
     if(tab->data[i]<min){
-      min = tab->data[i];
+      min = (int)tab->data[i];
       index=i;
     }
   }
   return index;
 }
 // count the number of the positive numbers starting from a certain position
-int intarray_count_positive_numbers(intarray tab, int start){
+int jstl_count_positive_numbers(jstl tab, int start){
   int count =0;
   for(int i=start;i<tab->len;i++){
     if(tab->data[i]>0)
@@ -235,14 +235,14 @@ int intarray_count_positive_numbers(intarray tab, int start){
   return count;
 }
 // clone the table values
-void intarray_clone_tables(intarray tab, intarray copy){
+void jstl_clone_tables(jstl tab, jstl copy){
   int i;
   for(i=0;i<tab->len;i++){
-    intarray_add(copy,tab->data[i]);
+    jstl_add(copy,tab->data[i]);
   }
 }
 // delete the element in the array and keep the order
-void intarray_delete(intarray tab, int index){
+void jstl_delete(jstl tab, int index){
   if(index < 0){
     printf("The index cant be negative.\n");
     return;
@@ -258,7 +258,7 @@ void intarray_delete(intarray tab, int index){
   tab->len--;
 }
 // delete the element in the array 
-void UNSORTED_intarray_delete(intarray tab, int index){
+void UNSORTED_jstl_delete(jstl tab, int index){
   if(index < 0){
     printf("The index cant be negative.\n");
     return;
@@ -270,13 +270,16 @@ void UNSORTED_intarray_delete(intarray tab, int index){
   tab->data[index]=tab->data[tab->len-1];
   tab->len--;
 }
-void from_char_intarray(intarray tab, char** charTab, int length){
+void from_char_jstl(jstl tab, char** charTab, int length){
   for(int i=1,j=0;i<length;i++){
     int* ok = malloc(sizeof(int));
     int integer = safe_string_to_int(charTab[i],ok);
     if(*ok==1){
-      intarray_add(tab,integer);
+      jstl_add(tab,integer);
     }
     free(ok);
   }
 }
+
+jstl regstr_to_jstl(regstr str);
+regstr jstl_to_regstr(jstl tab);

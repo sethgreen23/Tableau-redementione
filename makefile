@@ -1,4 +1,4 @@
-all: test.exe main.exe stats.exe
+all: test.exe main.exe stats.exe jstl_test.exe
 	echo "it is completed"
 
 stats.exe: intarray.o tools.o stats.o
@@ -7,8 +7,11 @@ stats.exe: intarray.o tools.o stats.o
 main.exe: intarray.o tools.c main.o
 	gcc intarray.o tools.o main.o -o main.exe
 
-test.exe: intarray.o tools.o test.o
-	gcc intarray.o tools.o test.o -o test.exe
+test.exe: tools.o test.o intarray.o
+	gcc tools.o test.o intarray.o -o test.exe
+
+jstl_test.exe: tools.o jstl_test.o jstl.o
+	gcc tools.o jstl_test.o jstl.o -o jstl_test.exe
 
 test.o: test.c intarray.h tools.h
 	gcc -c test.c
@@ -22,5 +25,11 @@ intarray.o: intarray.c intarray.h tools.h
 tools.o: tools.c tools.h
 	gcc -c tools.c
 
-stats.o: stats.c intarray.h tools.h
+stats.o: stats.c intarray.h tools.h 
 	gcc -c stats.c
+
+jstl_test.o: jstl_test.c jstl.h tools.h 
+	gcc -c jstl_test.c
+
+jstl.o: jstl.c jstl.h tools.h 
+	gcc -c jstl.c
