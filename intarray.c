@@ -184,12 +184,13 @@ float intarray_average(intarray tab){
 }
 // calculate the median value of the array
 float intarray_median(intarray tab){
-  int middle_index = tab->len/2;
+  intarray clone = intarray_sort1(tab);
+  int middle_index = clone->len/2;
   
-  if(tab->len%2==1){ 
-    return tab->data[middle_index]/2.0;
+  if(clone->len%2==1){ 
+    return clone->data[middle_index]/2.0;
   }else{
-    return (tab->data[middle_index]+tab->data[middle_index-1])/2.0;
+    return (clone->data[middle_index]+clone->data[middle_index-1])/2.0;
   }
 }
 // concatenate two inarray
