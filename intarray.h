@@ -1,6 +1,9 @@
+#ifndef __INTARRAY_H__
+#define __INTARRAY_H__
+
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "tools.h"
 typedef struct _intarray* intarray;
 typedef struct _intarray S_intarray;
 
@@ -41,3 +44,5 @@ void intarray_clone_tables(intarray tab, intarray copy);
 void intarray_delete(intarray tab, int index);
 void UNSORTED_intarray_delete(intarray tab, int index);
 void from_char_intarray(intarray tab, char** charTab, int length);
+
+#endif

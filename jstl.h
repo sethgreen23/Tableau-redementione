@@ -1,6 +1,11 @@
+#ifndef __JSTL_H__
+#define __JSTL_H__
+
+
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "tools.h"
+#include "intarray.h"
 typedef char* regstr;
 typedef struct _jstl* jstl;
 typedef struct _jstl S_jstl;
@@ -45,3 +50,6 @@ void UNSORTED_jstl_delete(jstl tab, int index);
 void from_char_jstl(jstl tab, char** charTab, int length);
 jstl regstr_to_jstl(regstr str);
 regstr jstl_to_regstr(jstl tab);
+
+
+#endif

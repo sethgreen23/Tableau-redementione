@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "jstl.h"
+#include "intarray.h"
 #include "tools.h"
 //Note!! the arrays wont be with size 0
 //create and empty jstl with both len and alloc set to the parameter len
