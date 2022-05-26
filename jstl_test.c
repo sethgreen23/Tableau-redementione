@@ -22,8 +22,15 @@ void stats(jstl tab){
   free(sorted_clone);
 }
 int main(int argc, char** argv){
-  jstl tab = standard_empty_jstl_create();
-  from_char_jstl(tab,argv,argc);
-  stats(tab);
-  free(tab);
+  // jstl tab = standard_empty_jstl_create();
+  // from_char_jstl(tab,argv,argc);
+  // stats(tab);
+  // free(tab);
+  // ******************************************
+  jstl tab = regstr_to_jstl("Hello world!");
+  jstl_debug(tab);
+  printf("\n");
+  tab = regstr_to_jstl("My name is chaith.\n");
+  regstr word = jstl_to_regstr(tab);
+  printf("%s",word);
 }

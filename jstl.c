@@ -25,14 +25,9 @@ jstl jstl_create(int len){
 void jstl_debug(jstl tab){
   int i;
   printf("jstl_debug: Length %d, Alloc %d.\n",tab->len,tab->alloc);
-  printf("[ ");
   for(i=0;i<tab->len;i++){
-    if(i!=tab->len-1)
-      printf("%c, ",tab->data[i]);
-    else
       printf("%c",tab->data[i]);
   }
-  printf(" ]");
 }
 // create an empty jstl with alloc set to the parameter value and as len=0
 jstl empty_jstl_create(int alloc){
@@ -280,6 +275,21 @@ void from_char_jstl(jstl tab, char** charTab, int length){
     free(ok);
   }
 }
-
-jstl regstr_to_jstl(regstr str);
-regstr jstl_to_regstr(jstl tab);
+// from regst to jstl
+jstl regstr_to_jstl(regstr str){
+  int len = strlen(str);
+  jstl tab = empty_jstl_create(len);
+  for(int i=0;str[i]!='\0';i++){
+    jstl_add(tab,str[i]);
+  }
+  return tab;
+}
+regstr jstl_to_regstr(jstl tab){
+  regstr word = malloc(sizeof(char)*tab->len+1);
+  int i;
+  for(i=0;i<tab->len;i++){
+    word[i]=tab->data[i];
+  }
+  word[i]='\0';
+  return word;
+}
