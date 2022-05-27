@@ -10,8 +10,8 @@ main.exe: intarray.o tools.c main.o jstl.o
 test.exe: tools.o test.o intarray.o
 	gcc tools.o test.o intarray.o -o test.exe
 
-jstl_test.exe: tools.o jstl_test.o jstl.o
-	gcc tools.o jstl_test.o jstl.o -o jstl_test.exe
+jstl_test.exe: tools.o jstl_test.o jstl.o intarray.o
+	gcc intarray.o tools.o jstl_test.o jstl.o -o jstl_test.exe
 
 test.o: test.c intarray.h tools.h
 	gcc -c test.c

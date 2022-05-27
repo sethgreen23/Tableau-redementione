@@ -340,8 +340,62 @@ int jstl_equal (jstl j1,jstl j2){
   }
   return 1;
 }
-intarray jstl_find_substr_indices(jstl j, jstl sub){
-
+intarray jstl_find_substr_indices(jstl tab, jstl sub){
+  intarray indices = standard_empty_intarray_create();
+  for (int i=0;i<tab->len;i++){
+    if(tab->data[i]==sub->data[0]){
+      int indice = i,flag = 1;
+      for(int j=0;j<sub->len;j++,indice++){
+        if(sub->data[j]!=tab->data[indice]){
+          flag=0;
+          break;
+        }
+      }
+      if(flag==1){
+        intarray_add(indices,i);
+      }
+    }
+  }
+  return indices;
+}
+// "totovaatotolecoleto"
+// "toto"
+intarray jstl_find_proper_substr_indices(jstl tab, jstl sub){
+  intarray indices = standard_empty_intarray_create();
+  //loop throw the word
+  for(int i=0;i<tab->len;){
+    char start = sub->data[0];
+    int len = sub->len;
+    //first my flag indicate that i didnt find a word
+    int flag = 2;
+    //if the element at index i match the first element of the substring
+    if(tab->data[i]==start){
+      // in need to go throw the word without altering the i position
+      int indice = i;
+      // declaring the j to loop the substring will help me to figure out if i went throw the 
+      // hole substring or not 
+      int j=0;
+      for(j=0;j<len&&indice<tab->len;indice++,j++){
+        // at any momement i find a single no match i break from the loop
+        if(sub->data[j]!=tab->data[indice]){
+          flag = 0;
+          break;
+        }
+      }
+      // here i found a sub word an found a match just if the j collide with the length of the sub string
+      if(j==len)
+        flag = 1;
+    }
+    // if i didnt find a match with the first letter of the substring
+    // or if i went throw the substring and eventualy i didnt a match while im loop throw the substring
+    if(flag==2||flag ==0){
+      i++;
+    }else if(flag == 1){// i went throw the hole substring and found a real match then need to skip all the letter of the substring
+      intarray_add(indices,i);
+      i+=len;
+    }
+  }
+  return indices;
 }
 /*Helper functions*/
 jstl jstl_substr(jstl tab, int s1, int e1){

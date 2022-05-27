@@ -37,4 +37,13 @@ int main(int argc, char** argv){
     // else
     //     printf("The words are same");
     //********************EXERCICE 3*************************
+    // jstl tab = regstr_to_jstl("totovaatotototolecoleto");
+    // jstl tab1 = regstr_to_jstl("toto");
+    // intarray indices = jstl_find_substr_indices(tab,tab1);
+    // intarray_debug(indices);
+    //********************EXERCICE 4*************************
+    jstl tab = regstr_to_jstl("totovaatotolecoletoto");
+    jstl tab1 = regstr_to_jstl("toto");
+    intarray indices = jstl_find_proper_substr_indices(tab,tab1);
+    intarray_debug(indices);
 }
