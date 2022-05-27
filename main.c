@@ -11,9 +11,9 @@ int main(int argc, char** argv){
     //get the length of the all the elements
     //********************EXERCICE 0*************************
 
-    jstl tab = standard_empty_jstl_create();
-    jstl_concatenation_argvs(tab, argv,argc);
-    jstl_debug(tab);
+    // jstl tab = standard_empty_jstl_create();
+    // jstl_concatenation_argvs(tab, argv,argc);
+    // jstl_debug(tab);
 
     //********************EXERCICE 1*************************
     // jstl tab1 = regstr_to_jstl("le soleil brille.");
@@ -28,4 +28,13 @@ int main(int argc, char** argv){
     // }
 
     //********************EXERCICE 2*************************
+    // jstl tab = regstr_to_jstl("Hello world!");
+    // jstl tab1 = regstr_to_jstl("Hello world");
+
+    // int flag =  jstl_equal (tab1,tab);
+    // if(flag == 0)
+    //     printf("The words are diffrent");
+    // else
+    //     printf("The words are same");
+    //********************EXERCICE 3*************************
 }

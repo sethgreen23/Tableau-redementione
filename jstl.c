@@ -317,10 +317,6 @@ int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
     //get the two substrings
     jstl substring1 = jstl_substr(j1,s1,e1) ;
     jstl substring2= jstl_substr(j2,s2,j2->len-1);
-    
-    // jstl_debug(substring1);
-    // printf("----------");
-    // jstl_debug(substring2);
     // if the length of the two substrings doesnt match then we go out from the function
     if(substring1->len!=substring2->len)
       return 0;
@@ -334,7 +330,19 @@ int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
     return 1;
 
 }
+int jstl_equal (jstl j1,jstl j2){
+  if(j1->len!=j2->len){
+    return 0;
+  }
+  for(int i=0;i<j1->len;i++){
+    if(j1->data[i]!=j2->data[i])
+      return 0;
+  }
+  return 1;
+}
+intarray jstl_find_substr_indices(jstl j, jstl sub){
 
+}
 /*Helper functions*/
 jstl jstl_substr(jstl tab, int s1, int e1){
   int ok;
