@@ -330,6 +330,7 @@ int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
     return 1;
 
 }
+/*Excercice 2*/
 int jstl_equal (jstl j1,jstl j2){
   if(j1->len!=j2->len){
     return 0;
@@ -340,6 +341,7 @@ int jstl_equal (jstl j1,jstl j2){
   }
   return 1;
 }
+/*Excercice 3*/
 intarray jstl_find_substr_indices(jstl tab, jstl sub){
   intarray indices = standard_empty_intarray_create();
   for (int i=0;i<tab->len;i++){
@@ -358,8 +360,7 @@ intarray jstl_find_substr_indices(jstl tab, jstl sub){
   }
   return indices;
 }
-// "totovaatotolecoleto"
-// "toto"
+/*Excercice 4*/
 intarray jstl_find_proper_substr_indices(jstl tab, jstl sub){
   intarray indices = standard_empty_intarray_create();
   //loop throw the word
@@ -396,6 +397,27 @@ intarray jstl_find_proper_substr_indices(jstl tab, jstl sub){
     }
   }
   return indices;
+}
+/*Excercice 5*/
+int jstr_compare(jstl tab,jstl lab){
+  int len = tab->len;
+  if(lab->len>tab->len){
+    len = lab->len;
+  }
+  int i;
+  for(i=0;i<len;i++){
+      if(tab->data[i]>lab->data[i])
+        return 1;
+      if(tab->data[i]<lab->data[i])
+        return -1;
+  }
+  if(lab->len==tab->len){
+    return 0;
+  }else if(lab->len > tab->len){
+    return -1;
+  }else{
+    return 1;
+  }
 }
 /*Helper functions*/
 jstl jstl_substr(jstl tab, int s1, int e1){

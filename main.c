@@ -42,8 +42,19 @@ int main(int argc, char** argv){
     // intarray indices = jstl_find_substr_indices(tab,tab1);
     // intarray_debug(indices);
     //********************EXERCICE 4*************************
-    jstl tab = regstr_to_jstl("totovaatotolecoletoto");
-    jstl tab1 = regstr_to_jstl("toto");
-    intarray indices = jstl_find_proper_substr_indices(tab,tab1);
-    intarray_debug(indices);
+    // jstl tab = regstr_to_jstl("totovaatotolecoletoto");
+    // jstl tab1 = regstr_to_jstl("toto");
+    // intarray indices = jstl_find_proper_substr_indices(tab,tab1);
+    // intarray_debug(indices);
+    //********************EXERCICE 4*************************
+    jstl tab = regstr_to_jstl("toti");
+    jstl lab = regstr_to_jstl("toto");
+    int result = jstr_compare(tab,lab);
+    if(result==0){
+        printf("%s == %s",jstl_to_regstr(tab),jstl_to_regstr(lab));
+    }else if(result==1){
+        printf("%s > %s",jstl_to_regstr(tab),jstl_to_regstr(lab));
+    }else if(result == -1){
+        printf("%s < %s",jstl_to_regstr(tab),jstl_to_regstr(lab));
+    }
 }

@@ -63,7 +63,7 @@ void jstl_substr_errors(jstl j1,int s1, int e1,int* ok);
 int jstl_equal (jstl j1,jstl j2);
 intarray jstl_find_substr_indices(jstl tab, jstl sub);
 intarray jstl_find_proper_substr_indices(jstl tab, jstl sub);
-
+int jstr_compare(jstl j1,jstl j2);
 
 
 
