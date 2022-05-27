@@ -25,7 +25,7 @@ jstl jstl_create(int len){
 // display the array
 void jstl_debug(jstl tab){
   int i;
-  printf("jstl_debug: Length %d, Alloc %d.\n",tab->len,tab->alloc);
+  // printf("jstl_debug: Length %d, Alloc %d.\n",tab->len,tab->alloc);
   for(i=0;i<tab->len;i++){
       printf("%c",tab->data[i]);
   }
@@ -293,4 +293,103 @@ regstr jstl_to_regstr(jstl tab){
   }
   word[i]='\0';
   return word;
+}
+
+/* My own implementation of the exercices*/
+/*Excercice 0*/
+void jstl_concatenation_argvs(jstl tab, char** values, int length){
+    int i;
+    for(i=1;i<length;i++){
+        regstr string = values[i];
+        for(int j=0;string[j]!='\0';j++){
+            jstl_add(tab,string[j]);
+        }
+    }
+}
+/*Excercice 1*/
+int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
+  // treating the overloading cases
+    int ok;
+    jstl_equal_substr_errors(j1,s1,e1,j2,s2,&ok);
+    // in case we have a mistaked the input we get out of the function with missmatch
+    if(ok=0)
+      return 0;
+    //get the two substrings
+    jstl substring1 = jstl_substr(j1,s1,e1) ;
+    jstl substring2= jstl_substr(j2,s2,j2->len-1);
+    
+    // jstl_debug(substring1);
+    // printf("----------");
+    // jstl_debug(substring2);
+    // if the length of the two substrings doesnt match then we go out from the function
+    if(substring1->len!=substring2->len)
+      return 0;
+    // if at any moment the two substrings deffers from each other we return a miss match
+    for(int i=0;i<substring1->len;i++){
+      if(substring1->data[i]!=substring2->data[i]){
+        return 0;
+      }
+    }
+    // we return true if there is a perfect match
+    return 1;
+
+}
+
+/*Helper functions*/
+jstl jstl_substr(jstl tab, int s1, int e1){
+  int ok;
+  jstl_substr_errors(tab,s1, e1,&ok);
+  if(ok==0){
+    return standard_empty_jstl_create();
+  }
+  jstl word = standard_empty_jstl_create();
+  for(int j=s1;j<=e1;j++)
+    jstl_add(word,tab->data[j]);
+  // printf("Length %d \n",word->len);
+  return word;
+}
+void jstl_equal_substr_errors(jstl j1,int s1, int e1,jstl j2, int s2,int* ok){
+  *ok=1;
+    if(s1<0 || s2<0 || e1 < 0){
+      if(s1<0)
+        printf("The starting index of the word \"%s\" must be great then 0\n",jstl_to_regstr(j1));
+      if(s2<0)  
+        printf("The starting index of the word \"%s\" must be great then 0\n",jstl_to_regstr(j2));
+      if(e1<0)  
+        printf("The ending index of the word \"%s\" must be great then 0\n",jstl_to_regstr(j1));
+        
+      *ok=0;
+    }
+    if(s1>e1){
+        printf("The starting index: %d must be always less then the ending index %d\n",s1,e1);
+        *ok=0;
+    }
+    if(e1>=j1->len || s2>=j2->len){
+        if(e1>=j1->len){
+            printf("The ending index %d must be always less then the length of the first word %s \n",e1,jstl_to_regstr(j1));
+        }else{
+            printf("The starting index %d must be always less then the length of the second word %s\n ",s2,jstl_to_regstr(j2));
+        }
+        *ok=0;
+    }
+}
+
+void jstl_substr_errors(jstl j1,int s1, int e1,int* ok){
+  *ok=1;
+    if(s1<0 ||  e1 < 0){
+      if(s1<0)
+        printf("The starting index of the word \"%s\" must be great then 0\n",jstl_to_regstr(j1));
+      if(e1<0)  
+        printf("The ending index of the word \"%s\" must be great then 0\n",jstl_to_regstr(j1));
+        
+      *ok=0;
+    }
+    if(s1>e1){
+        printf("The starting index: %d must be always less then the ending index %d\n",s1,e1);
+        *ok=0;
+    }
+    if(e1>=j1->len){
+        printf("The ending index %d must be always less then the length of the first word %s \n",e1,jstl_to_regstr(j1));
+        *ok=0;
+    }
 }

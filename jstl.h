@@ -50,6 +50,19 @@ void UNSORTED_jstl_delete(jstl tab, int index);
 void from_char_jstl(jstl tab, char** charTab, int length);
 jstl regstr_to_jstl(regstr str);
 regstr jstl_to_regstr(jstl tab);
+int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2);
+void jstl_concatenation_argvs(jstl tab, char** values, int length);
+jstl jstl_substr(jstl tab, int s1, int e1);
+/*My implementation for the exercices*/
+void jstl_concatenation_argvs(jstl tab, char** values, int length);
+int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2);
+/*Helper functions*/
+jstl jstl_substr(jstl tab, int s1, int e1);
+void jstl_equal_substr_errors(jstl j1,int s1, int e1,jstl j2, int s2,int* ok);
+void jstl_substr_errors(jstl j1,int s1, int e1,int* ok);
+
+
+
 
 
 #endif
