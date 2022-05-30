@@ -39,13 +39,14 @@ int main(int argc, char** argv){
     // correction version
     // jstl tab1 = regstr_to_jstl("le soleil brille.");
     // jstl tab2 = regstr_to_jstl("sole");
-    // if(jstl_equal_substr(tab1,3,7,tab2,0)){
+    // if(jstl_equal_substr(tab1,3,6,tab2,0)){
     //     printf("Oui");
     // }else{
     //     printf("Non");
     // }
     // jstl_destroy(tab1);
     // jstl_destroy(tab2);
+
     //********************EXERCICE 2*************************
     // my version
     // jstl tab = regstr_to_jstl("Mariouma");
@@ -66,6 +67,8 @@ int main(int argc, char** argv){
     // }
     // jstl_destroy(tab1);
     // jstl_destroy(tab2);
+    
+
     //********************EXERCICE 3*************************
     // my version
     // jstl tab = regstr_to_jstl("totovaatotortoetolecoleto");
@@ -80,6 +83,7 @@ int main(int argc, char** argv){
     // intarray_destroy(ar);
     // jstl_destroy(tab1);
     // jstl_destroy(tab2);
+    
     //********************EXERCICE 4*************************
     // my version
     // jstl tab = regstr_to_jstl("totototovaatotolecoletot");
@@ -94,6 +98,8 @@ int main(int argc, char** argv){
     // intarray_destroy(ar);
     // jstl_destroy(tab1);
     // jstl_destroy(tab2);
+    // correction verions
+    
     //********************EXERCICE 5*************************
     // my version
     // jstl tab = regstr_to_jstl("toti");
