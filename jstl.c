@@ -294,10 +294,73 @@ regstr jstl_to_regstr(jstl tab){
   word[i]='\0';
   return word;
 }
+void D_jstl_concat(jstl t,jstl s){
+  for(int i=0;i<s->len;i++)
+    jstl_add(t,s->data[i]);
+  
+}
+int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
+  // find length
+  int len = e1 - s1 + 1;
+  int e2 = len + s2 -1;
+  if(s1>e1){
+    printf("jstl_equal_substr: s1 is always less the e1. exchange them.\n");
+    interchange_values(&s1,&e1);
+  }
+  if((s1<0) || (s2<0) || (e1>=j1->len) || (s1>=j1->len) || (s2>=j2->len)){
+    printf("jstl_equal_substr: out of bounds.s1: %d ; e1: %d\n",s1,e1);
+    printf("jstl_equal_substr: out of bounds.s2: %d .\n",s2);
+    return 0;
+  }
+  // if the motif j1 is bigger to be contained in j2
+  if(e2>=j2->len){
+    return 0;
+  }
+
+  for(int i=0;i<len;i++){
+    // at any motment we have a difference between the two variables
+    if(j1->data[i+s1]!=j2->data[i+s2])
+      return 0;
+  }
+  return 1;
+}
+
+int jstl_equal (jstl j1,jstl j2){
+  if(j1->len!=j2->len)
+    return 0;
+  else
+    return jstl_equal_substr(j1,0, j1->len-1,j2, 0);
+}
+
+intarray jstl_find_substr_indices(jstl tab, jstl sub){
+  intarray A = standard_empty_intarray_create();
+  for(int i=0;i<=tab->len-sub->len;i++){
+    if(jstl_equal_substr(tab,i,i+sub->len-1,sub,0))
+      intarray_add(A,i);
+  }
+  return A;
+}
+intarray jstl_find_proper_substr_indices(jstl tab, jstl sub){
+  intarray A = standard_empty_intarray_create();
+  for(int i=0;i<=tab->len-sub->len;){
+    if(jstl_equal_substr(tab,i,i+sub->len-1,sub,0)){
+      intarray_add(A,i);
+      i+=sub->len;
+    }else{
+      i++;
+    }
+  }
+  return A;
+}
+
+
+
+
+
 
 /* My own implementation of the exercices*/
 /*Excercice 0*/
-void jstl_concatenation_argvs(jstl tab, char** values, int length){
+void MY_jstl_concatenation_argvs(jstl tab, char** values, int length){
     int i;
     for(i=1;i<length;i++){
         regstr string = values[i];
@@ -306,17 +369,18 @@ void jstl_concatenation_argvs(jstl tab, char** values, int length){
         }
     }
 }
+
 /*Excercice 1*/
-int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
+int MY_jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
   // treating the overloading cases
     int ok;
-    jstl_equal_substr_errors(j1,s1,e1,j2,s2,&ok);
+    MY_jstl_equal_substr_errors(j1,s1,e1,j2,s2,&ok);
     // in case we have a mistaked the input we get out of the function with missmatch
     if(ok=0)
       return 0;
     //get the two substrings
-    jstl substring1 = jstl_substr(j1,s1,e1) ;
-    jstl substring2= jstl_substr(j2,s2,j2->len-1);
+    jstl substring1 = MY_jstl_substr(j1,s1,e1) ;
+    jstl substring2= MY_jstl_substr(j2,s2,j2->len-1);
     // if the length of the two substrings doesnt match then we go out from the function
     if(substring1->len!=substring2->len)
       return 0;
@@ -331,7 +395,7 @@ int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
 
 }
 /*Excercice 2*/
-int jstl_equal (jstl j1,jstl j2){
+int MY_jstl_equal (jstl j1,jstl j2){
   if(j1->len!=j2->len){
     return 0;
   }
@@ -342,7 +406,7 @@ int jstl_equal (jstl j1,jstl j2){
   return 1;
 }
 /*Excercice 3*/
-intarray jstl_find_substr_indices(jstl tab, jstl sub){
+intarray MY_jstl_find_substr_indices(jstl tab, jstl sub){
   intarray indices = standard_empty_intarray_create();
   for (int i=0;i<tab->len;i++){
     if(tab->data[i]==sub->data[0]){
@@ -361,7 +425,7 @@ intarray jstl_find_substr_indices(jstl tab, jstl sub){
   return indices;
 }
 /*Excercice 4*/
-intarray jstl_find_proper_substr_indices(jstl tab, jstl sub){
+intarray MY_jstl_find_proper_substr_indices(jstl tab, jstl sub){
   intarray indices = standard_empty_intarray_create();
   //loop throw the word
   for(int i=0;i<tab->len;){
@@ -399,7 +463,7 @@ intarray jstl_find_proper_substr_indices(jstl tab, jstl sub){
   return indices;
 }
 /*Excercice 5*/
-int jstr_compare(jstl tab,jstl lab){
+int MY_jstr_compare(jstl tab,jstl lab){
   int len = tab->len;
   if(lab->len>tab->len){
     len = lab->len;
@@ -420,9 +484,9 @@ int jstr_compare(jstl tab,jstl lab){
   }
 }
 /*Helper functions*/
-jstl jstl_substr(jstl tab, int s1, int e1){
+jstl MY_jstl_substr(jstl tab, int s1, int e1){
   int ok;
-  jstl_substr_errors(tab,s1, e1,&ok);
+  MY_jstl_substr_errors(tab,s1, e1,&ok);
   if(ok==0){
     return standard_empty_jstl_create();
   }
@@ -432,7 +496,7 @@ jstl jstl_substr(jstl tab, int s1, int e1){
   // printf("Length %d \n",word->len);
   return word;
 }
-void jstl_equal_substr_errors(jstl j1,int s1, int e1,jstl j2, int s2,int* ok){
+void MY_jstl_equal_substr_errors(jstl j1,int s1, int e1,jstl j2, int s2,int* ok){
   *ok=1;
     if(s1<0 || s2<0 || e1 < 0){
       if(s1<0)
@@ -458,7 +522,7 @@ void jstl_equal_substr_errors(jstl j1,int s1, int e1,jstl j2, int s2,int* ok){
     }
 }
 
-void jstl_substr_errors(jstl j1,int s1, int e1,int* ok){
+void MY_jstl_substr_errors(jstl j1,int s1, int e1,int* ok){
   *ok=1;
     if(s1<0 ||  e1 < 0){
       if(s1<0)

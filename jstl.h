@@ -54,16 +54,29 @@ int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2);
 void jstl_concatenation_argvs(jstl tab, char** values, int length);
 jstl jstl_substr(jstl tab, int s1, int e1);
 /*My implementation for the exercices*/
-void jstl_concatenation_argvs(jstl tab, char** values, int length);
+void MY_jstl_concatenation_argvs(jstl tab, char** values, int length);
+void D_jstl_concat(jstl t,jstl s);
 int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2);
-/*Helper functions*/
-jstl jstl_substr(jstl tab, int s1, int e1);
-void jstl_equal_substr_errors(jstl j1,int s1, int e1,jstl j2, int s2,int* ok);
-void jstl_substr_errors(jstl j1,int s1, int e1,int* ok);
 int jstl_equal (jstl j1,jstl j2);
 intarray jstl_find_substr_indices(jstl tab, jstl sub);
 intarray jstl_find_proper_substr_indices(jstl tab, jstl sub);
-int jstr_compare(jstl j1,jstl j2);
+
+
+
+/*MY Emplementation of the funtiontions*/
+int MY_jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2);
+int MY_jstl_equal (jstl j1,jstl j2);
+intarray MY_jstl_find_substr_indices(jstl tab, jstl sub);
+intarray MY_jstl_find_proper_substr_indices(jstl tab, jstl sub);
+int MY_jstr_compare(jstl tab,jstl lab);
+/*Helper functions*/
+jstl MY_jstl_substr(jstl tab, int s1, int e1);
+void MY_jstl_equal_substr_errors(jstl j1,int s1, int e1,jstl j2, int s2,int* ok);
+void MY_jstl_substr_errors(jstl j1,int s1, int e1,int* ok);
+int MY_jstl_equal (jstl j1,jstl j2);
+intarray MY_jstl_find_substr_indices(jstl tab, jstl sub);
+intarray MY_jstl_find_proper_substr_indices(jstl tab, jstl sub);
+int MY_jstr_compare(jstl j1,jstl j2);
 
 
 
