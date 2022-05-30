@@ -73,13 +73,13 @@ int main(int argc, char** argv){
     // intarray indices = jstl_find_substr_indices(tab,tab1);
     // intarray_debug(indices);
     //correction verions
-    jstl tab1 = regstr_to_jstl("tototo titititototo");
-    jstl tab2 = regstr_to_jstl("toto");
-    intarray ar = jstl_find_proper_substr_indices(tab1,tab2);
-    intarray_debug(ar);
-    intarray_destroy(ar);
-    jstl_destroy(tab1);
-    jstl_destroy(tab2);
+    // jstl tab1 = regstr_to_jstl("tototo titititototo");
+    // jstl tab2 = regstr_to_jstl("toto");
+    // intarray ar = jstl_find_substr_indices(tab1,tab2);
+    // intarray_debug(ar);
+    // intarray_destroy(ar);
+    // jstl_destroy(tab1);
+    // jstl_destroy(tab2);
     //********************EXERCICE 4*************************
     // my version
     // jstl tab = regstr_to_jstl("totototovaatotolecoletot");
@@ -87,6 +87,13 @@ int main(int argc, char** argv){
     // intarray indices = jstl_find_proper_substr_indices(tab,tab1);
     // intarray_debug(indices);
     //correction verions
+    // jstl tab1 = regstr_to_jstl("tototo titititototo");
+    // jstl tab2 = regstr_to_jstl("toto");
+    // intarray ar = jstl_find_proper_substr_indices(tab1,tab2);
+    // intarray_debug(ar);
+    // intarray_destroy(ar);
+    // jstl_destroy(tab1);
+    // jstl_destroy(tab2);
     //********************EXERCICE 5*************************
     // my version
     // jstl tab = regstr_to_jstl("toti");

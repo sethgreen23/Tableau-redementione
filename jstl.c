@@ -294,11 +294,14 @@ regstr jstl_to_regstr(jstl tab){
   word[i]='\0';
   return word;
 }
+//correction de l'instructeur
+// exercice 0
 void D_jstl_concat(jstl t,jstl s){
   for(int i=0;i<s->len;i++)
     jstl_add(t,s->data[i]);
   
 }
+// exercice 1
 int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
   // find length
   int len = e1 - s1 + 1;
@@ -324,14 +327,15 @@ int jstl_equal_substr(jstl j1,int s1, int e1,jstl j2, int s2){
   }
   return 1;
 }
-
+// exercice 2
 int jstl_equal (jstl j1,jstl j2){
   if(j1->len!=j2->len)
     return 0;
   else
     return jstl_equal_substr(j1,0, j1->len-1,j2, 0);
 }
-
+/*
+// exercice 3
 intarray jstl_find_substr_indices(jstl tab, jstl sub){
   intarray A = standard_empty_intarray_create();
   for(int i=0;i<=tab->len-sub->len;i++){
@@ -340,6 +344,7 @@ intarray jstl_find_substr_indices(jstl tab, jstl sub){
   }
   return A;
 }
+// exercice 4
 intarray jstl_find_proper_substr_indices(jstl tab, jstl sub){
   intarray A = standard_empty_intarray_create();
   for(int i=0;i<=tab->len-sub->len;){
@@ -352,10 +357,58 @@ intarray jstl_find_proper_substr_indices(jstl tab, jstl sub){
   }
   return A;
 }
+*/
 
+/*Refactoring for jstl_find_substr_indices and  jstl_find_proper_substr_indices*/
+/*
+  Fonction auxiliaire pour jstl_find_substr_indices
+  et jstl_find_substr_proper_indice.
+  La difference entre les deux est que la valeur ajourtée au compteur i
+  est sub->len dans le cas de prper et 1 dans l'autre cas.
+*/
+intarray jstl_find_substr_indices_aux(jstl tab, jstl sub,int incr_when_occu_found){
+  intarray A = standard_empty_intarray_create();
+    for(int i=0;i<=tab->len-sub->len;){
+      if(jstl_equal_substr(tab,i,i+sub->len-1,sub,0)){
+        intarray_add(A,i);
+        i+=incr_when_occu_found;
+      }else{
+        i++;
+      }
+    }
+    return A;
+  
+}
 
+intarray jstl_find_substr_indices(jstl tab, jstl sub){
+  return jstl_find_substr_indices_aux(tab,sub,1);
+}
+intarray jstl_find_proper_substr_indices(jstl tab, jstl sub){
+  return jstl_find_substr_indices_aux(tab,sub,sub->len);
+}
 
+// exercice 5
+int jstl_compare(jstl j1, jstl j2){
+  int minlen = j1->len;
+  int i;
+  // get the min len
+  if(j2->len < minlen)
+    minlen = j2->len;
+  for(i=0;i<minlen;i++){
+    if(j1->data[i]<j2->data[i])
+      return -1;
+    else if(j1->data[i]>j2->data[i])
+      return 1;
+  }
 
+  // celle qui est la plus grande longueur est la plus grande
+  if(j1->len > j2->len)
+    return 1;
+  else if(j1->len < j2->len)
+    return -1;
+  else // j1->len == j2->len tous les caracteres identique
+    return 0;
+}
 
 
 /* My own implementation of the exercices*/
